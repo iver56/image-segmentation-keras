@@ -58,7 +58,7 @@ if len( load_weights ) > 0:
 	m.load_weights(load_weights)
 
 
-print "Model output shape" ,  m.output_shape
+print("Model output shape" ,  m.output_shape)
 
 output_height = m.outputHeight
 output_width = m.outputWidth

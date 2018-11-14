@@ -1,15 +1,10 @@
 # Image Segmentation Keras : Implementation of Segnet, FCN, UNet and other models in Keras.
 
-Implememnation of various Deep Image Segmentation models in keras. 
-
+Implementation of various Deep Image Segmentation models in keras. 
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/sunshineatnoon/Paper-Collection/master/images/FCN1.png" width="50%" >
 </p>
-
-## Our Other Repositories 
-- [Attention based Language Translation in Keras](https://github.com/divamgupta/attention-translation-keras)
-
 
 ## Models 
 
@@ -38,7 +33,7 @@ sudo pip install --upgrade keras
 
 You need to make two folders
 
-*  Images Folder - For all the training images 
+* Images Folder - For all the training images 
 * Annotations Folder - For the corresponding ground truth segmentation images
 
 The filenames of the annotation images should be same as the filenames of the RGB images.

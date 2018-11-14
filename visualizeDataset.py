@@ -1,5 +1,7 @@
 
 import glob
+from pathlib import Path
+
 import numpy as np
 import cv2
 import random
@@ -20,7 +22,7 @@ def imageSegmentationGenerator( images_path , segs_path ,  n_classes ):
 	assert len( images ) == len(segmentations)
 
 	for im_fn , seg_fn in zip(images,segmentations):
-		assert(  im_fn.split('/')[-1] ==  seg_fn.split('/')[-1] )
+		assert Path(im_fn).stem == Path(seg_fn).stem
 
 		img = cv2.imread( im_fn )
 		seg = cv2.imread( seg_fn )

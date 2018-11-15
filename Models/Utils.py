@@ -1,5 +1,4 @@
 import h5py
-import os
 
 
 def loadWeightsPartial(model, weights_path, n_layers):

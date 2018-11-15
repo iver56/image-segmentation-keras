@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 import cv2
 import glob
@@ -80,7 +82,7 @@ def imageSegmentationGenerator(
 
     assert len(images) == len(segmentations)
     for im, seg in zip(images, segmentations):
-        assert im.split("/")[-1].split(".")[0] == seg.split("/")[-1].split(".")[0]
+        assert Path(im).stem == Path(seg).stem
 
     zipped = itertools.cycle(zip(images, segmentations))
 

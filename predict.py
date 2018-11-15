@@ -1,10 +1,10 @@
 import argparse
 import glob
 import os
-import random
 from pathlib import Path
 
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
 
@@ -54,10 +54,7 @@ images = (
 )
 images.sort()
 
-colors = [
-    (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-    for _ in range(n_classes)
-]
+colors = plt.cm.get_cmap('tab10')(np.linspace(0, 1, n_classes), bytes=True)[:, :3]
 
 os.makedirs(args.output_path, exist_ok=True)
 

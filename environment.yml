@@ -5,6 +5,7 @@ dependencies:
 - h5py>=2.7,<3
 - hdf5>=1.8,<2
 - Keras=2.0
+- matplotlib=3.0
 - numpy=1
 - pip>=9.0.1,<=18.1
 - python=3.6.*

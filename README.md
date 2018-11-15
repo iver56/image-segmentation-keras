@@ -94,7 +94,7 @@ wget "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vg
 To train the model run the following command:
 
 ```shell
-THEANO_FLAGS=device=gpu,floatX=float32  python  train.py \
+THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python train.py \
  --save_weights_path=weights/ex1 \
  --train_images="data/dataset1/images_prepped_train/" \
  --train_annotations="data/dataset1/annotations_prepped_train/" \
@@ -113,7 +113,7 @@ Choose model_name from vgg_segnet  vgg_unet, vgg_unet2, fcn8, fcn32
 To get the predictions of a trained model
 
 ```shell
-THEANO_FLAGS=device=gpu,floatX=float32  python  predict.py \
+THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python predict.py \
  --save_weights_path=weights/ex1 \
  --epoch_number=0 \
  --test_images="data/dataset1/images_prepped_test/" \

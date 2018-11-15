@@ -103,7 +103,7 @@ THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python train.py \
  --n_classes=10 \
  --input_height=320 \
  --input_width=640 \
- --model_name="vgg_segnet" 
+ --model_name="vgg_segnet"
 ```
 
 Choose model_name from vgg_segnet  vgg_unet, vgg_unet2, fcn8, fcn32
@@ -121,6 +121,6 @@ THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python predict.py \
  --n_classes=10 \
  --input_height=320 \
  --input_width=640 \
- --model_name="vgg_segnet" 
+ --model_name="vgg_segnet"
 ```
 

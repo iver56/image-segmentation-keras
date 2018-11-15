@@ -1,0 +1,9 @@
+.gitattributes
+.git/*
+.idea/*
+.editorconfig
+*.pyc
+weights/*
+data/predictions/*
+__pycache__/*
+.dockerignore

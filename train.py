@@ -1,4 +1,6 @@
 import argparse
+import os
+
 import Models, LoadBatches
 
 
@@ -38,6 +40,8 @@ load_weights = args.load_weights
 
 optimizer_name = args.optimizer_name
 model_name = args.model_name
+
+os.makedirs(save_weights_path, exist_ok=True)
 
 if validate:
     val_images_path = args.val_images

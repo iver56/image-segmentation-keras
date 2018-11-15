@@ -17,17 +17,16 @@ Implementation of various Deep Image Segmentation models in keras.
 
 ## Getting Started
 
-### Prerequisites
+### Setup
 
-* Keras 2.0
-* opencv for python
-* Theano 
+With conda:
 
-```shell
-sudo apt-get install python-opencv
-sudo pip install --upgrade theano
-sudo pip install --upgrade keras
-```
+* `conda env create`
+
+With nvidia-docker:
+
+* `docker build -t image-segmentation-keras .`
+* `docker run --rm --runtime nvidia -it image-segmentation-keras /bin/bash`
 
 ### Preparing the data for training
 

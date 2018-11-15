@@ -1,10 +1,10 @@
+import argparse
 import glob
+import random
 from pathlib import Path
 
-import numpy as np
 import cv2
-import random
-import argparse
+import numpy as np
 
 
 def imageSegmentationGenerator(images_path, segs_path, n_classes):

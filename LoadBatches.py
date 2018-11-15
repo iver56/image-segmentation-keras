@@ -1,9 +1,9 @@
-from pathlib import Path
-
-import numpy as np
-import cv2
 import glob
 import itertools
+from pathlib import Path
+
+import cv2
+import numpy as np
 
 
 def getImageArr(path, width, height, imgNorm="sub_mean", odering="channels_first"):

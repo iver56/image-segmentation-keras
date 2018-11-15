@@ -1,8 +1,8 @@
 import argparse
 import os
 
-import Models, LoadBatches
-
+import LoadBatches
+import Models
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--save_weights_path", type=str)

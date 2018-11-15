@@ -1,15 +1,15 @@
 import argparse
+import glob
 import os
+import random
 from pathlib import Path
 
-from tqdm import tqdm
-
-import Models, LoadBatches
-from keras.models import load_model
-import glob
 import cv2
 import numpy as np
-import random
+from tqdm import tqdm
+
+import LoadBatches
+import Models
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--save_weights_path", type=str)

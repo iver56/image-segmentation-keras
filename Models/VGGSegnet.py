@@ -1,8 +1,5 @@
-from keras.models import *
 from keras.layers import *
-
-
-import os
+from keras.models import *
 
 file_path = os.path.dirname(os.path.abspath(__file__))
 VGG_Weights_path = file_path + "/../data/vgg16_weights_th_dim_ordering_th_kernels.h5"

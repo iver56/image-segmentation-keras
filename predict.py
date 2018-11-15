@@ -62,7 +62,6 @@ colors = [
 os.makedirs(args.output_path, exist_ok=True)
 
 for image_file_path in tqdm(images):
-    image_file_path = Path(image_file_path)
     X = LoadBatches.getImageArr(image_file_path, args.input_width, args.input_height)
     pr = m.predict(np.array([X]))[0]
     pr = pr.reshape((output_height, output_width, n_classes)).argmax(axis=2)
@@ -72,5 +71,5 @@ for image_file_path in tqdm(images):
         seg_img[:, :, 1] += ((pr[:, :] == c) * (colors[c][1])).astype("uint8")
         seg_img[:, :, 2] += ((pr[:, :] == c) * (colors[c][2])).astype("uint8")
     seg_img = cv2.resize(seg_img, (input_width, input_height))
-    output_image_file_path = os.path.join(args.output_path, image_file_path.name)
+    output_image_file_path = os.path.join(args.output_path, Path(image_file_path).name)
     cv2.imwrite(output_image_file_path, seg_img)

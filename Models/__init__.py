@@ -1,4 +1,4 @@
-import VGGUnet
-import VGGSegnet
-import FCN8
-import FCN32
+import Models.VGGUnet
+import Models.VGGSegnet
+import Models.FCN8
+import Models.FCN32

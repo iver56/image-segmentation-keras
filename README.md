@@ -129,7 +129,7 @@ Choose model_name from vgg_segnet  vgg_unet, vgg_unet2, fcn8, fcn32
 
 ## Getting the predictions
 
-To get the predictions of a trained model
+To get the predictions of a trained model, using theano:
 
 ```shell
 THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python predict.py \
@@ -140,6 +140,20 @@ THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python predict.py \
  --n_classes=10 \
  --input_height=320 \
  --input_width=640 \
+ --model_name="vgg_segnet"
+```
+
+To get the predictions of a trained model, using tensorflow:
+
+```shell
+python predict.py \
+ --save_weights_path=weights/ex1 \
+ --epoch_number=0 \
+ --test_images="data/dataset1/images_prepped_test/" \
+ --output_path="data/predictions/" \
+ --n_classes=10 \
+ --input_height=224 \
+ --input_width=224 \
  --model_name="vgg_segnet"
 ```
 

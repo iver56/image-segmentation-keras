@@ -8,11 +8,12 @@ from keras.layers import *
 
 import os
 
+from Models.constants import IMAGE_DATA_FORMAT
+
 file_path = os.path.dirname(os.path.abspath(__file__))
 
 VGG_Weights_path = file_path + "/../data/vgg16_weights_th_dim_ordering_th_kernels.h5"
 
-IMAGE_ORDERING = "channels_first"
 
 # crop o1 wrt o2
 def crop(o1, o2, i):
@@ -28,14 +29,14 @@ def crop(o1, o2, i):
     cy = abs(outputHeight2 - outputHeight1)
 
     if outputWidth1 > outputWidth2:
-        o1 = Cropping2D(cropping=((0, 0), (0, cx)), data_format=IMAGE_ORDERING)(o1)
+        o1 = Cropping2D(cropping=((0, 0), (0, cx)), data_format=IMAGE_DATA_FORMAT)(o1)
     else:
-        o2 = Cropping2D(cropping=((0, 0), (0, cx)), data_format=IMAGE_ORDERING)(o2)
+        o2 = Cropping2D(cropping=((0, 0), (0, cx)), data_format=IMAGE_DATA_FORMAT)(o2)
 
     if outputHeight1 > outputHeight2:
-        o1 = Cropping2D(cropping=((0, cy), (0, 0)), data_format=IMAGE_ORDERING)(o1)
+        o1 = Cropping2D(cropping=((0, cy), (0, 0)), data_format=IMAGE_DATA_FORMAT)(o1)
     else:
-        o2 = Cropping2D(cropping=((0, cy), (0, 0)), data_format=IMAGE_ORDERING)(o2)
+        o2 = Cropping2D(cropping=((0, cy), (0, 0)), data_format=IMAGE_DATA_FORMAT)(o2)
 
     return o1, o2
 
@@ -54,7 +55,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(img_input)
     x = Conv2D(
         64,
@@ -62,10 +63,10 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f1 = x
     # Block 2
@@ -75,7 +76,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         128,
@@ -83,10 +84,10 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f2 = x
 
@@ -97,7 +98,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -105,7 +106,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -113,10 +114,10 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f3 = x
 
@@ -127,7 +128,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -135,7 +136,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -143,10 +144,10 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f4 = x
 
@@ -157,7 +158,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -165,7 +166,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -173,10 +174,10 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f5 = x
 
@@ -192,20 +193,20 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
 
     o = (
         Conv2D(
-            4096, (7, 7), activation="relu", padding="same", data_format=IMAGE_ORDERING
+            4096, (7, 7), activation="relu", padding="same", data_format=IMAGE_DATA_FORMAT
         )
     )(o)
     o = Dropout(0.5)(o)
     o = (
         Conv2D(
-            4096, (1, 1), activation="relu", padding="same", data_format=IMAGE_ORDERING
+            4096, (1, 1), activation="relu", padding="same", data_format=IMAGE_DATA_FORMAT
         )
     )(o)
     o = Dropout(0.5)(o)
 
     o = (
         Conv2D(
-            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_ORDERING
+            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_DATA_FORMAT
         )
     )(o)
     o = Conv2DTranspose(
@@ -213,13 +214,13 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         kernel_size=(4, 4),
         strides=(2, 2),
         use_bias=False,
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(o)
 
     o2 = f4
     o2 = (
         Conv2D(
-            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_ORDERING
+            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_DATA_FORMAT
         )
     )(o2)
 
@@ -232,12 +233,12 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         kernel_size=(4, 4),
         strides=(2, 2),
         use_bias=False,
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(o)
     o2 = f3
     o2 = (
         Conv2D(
-            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_ORDERING
+            nClasses, (1, 1), kernel_initializer="he_normal", data_format=IMAGE_DATA_FORMAT
         )
     )(o2)
     o2, o = crop(o2, o, img_input)
@@ -248,7 +249,7 @@ def FCN8(nClasses, input_height=416, input_width=608, vgg_level=3):
         kernel_size=(16, 16),
         strides=(8, 8),
         use_bias=False,
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(o)
 
     o_shape = Model(img_input, o).output_shape

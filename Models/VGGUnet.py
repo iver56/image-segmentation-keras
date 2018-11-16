@@ -3,12 +3,12 @@ from keras.layers import *
 
 import os
 
+from Models.constants import IMAGE_DATA_FORMAT
+
 file_path = os.path.dirname(os.path.abspath(__file__))
 
 
 VGG_Weights_path = file_path + "/../data/vgg16_weights_th_dim_ordering_th_kernels.h5"
-
-IMAGE_ORDERING = "channels_first"
 
 
 def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
@@ -25,7 +25,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(img_input)
     x = Conv2D(
         64,
@@ -33,10 +33,10 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f1 = x
     # Block 2
@@ -46,7 +46,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         128,
@@ -54,10 +54,10 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f2 = x
 
@@ -68,7 +68,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -76,7 +76,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -84,10 +84,10 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f3 = x
 
@@ -98,7 +98,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -106,7 +106,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -114,10 +114,10 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f4 = x
 
@@ -128,7 +128,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -136,7 +136,7 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -144,10 +144,10 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f5 = x
 
@@ -163,29 +163,29 @@ def VGGUnet(n_classes, input_height=416, input_width=608, vgg_level=3):
 
     o = f4
 
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(512, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(512, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     o = concatenate([o, f3], axis=1)
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(256, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(256, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     o = concatenate([o, f2], axis=1)
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(128, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(128, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     o = concatenate([o, f1], axis=1)
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(64, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(64, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = Conv2D(n_classes, (3, 3), padding="same", data_format=IMAGE_ORDERING)(o)
+    o = Conv2D(n_classes, (3, 3), padding="same", data_format=IMAGE_DATA_FORMAT)(o)
     o_shape = Model(img_input, o).output_shape
     outputHeight = o_shape[2]
     outputWidth = o_shape[3]
@@ -214,7 +214,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(img_input)
     x = Conv2D(
         64,
@@ -222,10 +222,10 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block1_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block1_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f1 = x
     # Block 2
@@ -235,7 +235,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         128,
@@ -243,10 +243,10 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block2_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block2_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f2 = x
 
@@ -257,7 +257,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -265,7 +265,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         256,
@@ -273,10 +273,10 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block3_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block3_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f3 = x
 
@@ -287,7 +287,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -295,7 +295,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -303,10 +303,10 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block4_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block4_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f4 = x
 
@@ -317,7 +317,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv1",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -325,7 +325,7 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv2",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = Conv2D(
         512,
@@ -333,10 +333,10 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
         activation="relu",
         padding="same",
         name="block5_conv3",
-        data_format=IMAGE_ORDERING,
+        data_format=IMAGE_DATA_FORMAT,
     )(x)
     x = MaxPooling2D(
-        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_ORDERING
+        (2, 2), strides=(2, 2), name="block5_pool", data_format=IMAGE_DATA_FORMAT
     )(x)
     f5 = x
 
@@ -352,29 +352,29 @@ def VGGUnet2(n_classes, input_height=416, input_width=608, vgg_level=3):
 
     o = f4
 
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(512, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(512, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     o = concatenate([o, f3], axis=1)
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(256, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(256, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     o = concatenate([o, f2], axis=1)
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(128, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(128, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = (UpSampling2D((2, 2), data_format=IMAGE_ORDERING))(o)
+    o = (UpSampling2D((2, 2), data_format=IMAGE_DATA_FORMAT))(o)
     # o = ( concatenate([o,f1],axis=1 ) )
-    o = (ZeroPadding2D((1, 1), data_format=IMAGE_ORDERING))(o)
-    o = (Conv2D(64, (3, 3), padding="valid", data_format=IMAGE_ORDERING))(o)
+    o = (ZeroPadding2D((1, 1), data_format=IMAGE_DATA_FORMAT))(o)
+    o = (Conv2D(64, (3, 3), padding="valid", data_format=IMAGE_DATA_FORMAT))(o)
     o = (BatchNormalization())(o)
 
-    o = Conv2D(n_classes, (3, 3), padding="same", data_format=IMAGE_ORDERING)(o)
+    o = Conv2D(n_classes, (3, 3), padding="same", data_format=IMAGE_DATA_FORMAT)(o)
     o_shape = Model(img_input, o).output_shape
     outputHeight = o_shape[2]
     outputWidth = o_shape[3]

@@ -83,7 +83,12 @@ You need to download the pretrained VGG-16 weights trained on imagenet if you wa
 ```shell
 mkdir data
 cd data
+
+# theano-compatible
 wget "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_th_dim_ordering_th_kernels.h5"
+
+# tensorflow-compatible
+wget "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5"
 ```
 
 

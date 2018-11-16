@@ -4,12 +4,21 @@ from keras.models import *
 from Models.constants import IMAGE_DATA_FORMAT
 
 file_path = os.path.dirname(os.path.abspath(__file__))
-VGG_Weights_path = file_path + "/../data/vgg16_weights_th_dim_ordering_th_kernels.h5"
+VGG_Weights_path = (
+    (file_path + "/../data/vgg16_weights_th_dim_ordering_th_kernels.h5")
+    if IMAGE_DATA_FORMAT == "channels_first"
+    else (file_path + "/../data/vgg16_weights_tf_dim_ordering_tf_kernels.h5")
+)
 
 
-def VGGSegnet(n_classes, input_height=416, input_width=608, vgg_level=3):
+def VGGSegnet(n_classes, input_height=224, input_width=224, vgg_level=3):
 
-    img_input = Input(shape=(3, input_height, input_width))
+    input_shape = (
+        (3, input_height, input_width)
+        if IMAGE_DATA_FORMAT == "channels_first"
+        else (input_height, input_width, 3)
+    )
+    img_input = Input(shape=input_shape)
 
     x = Conv2D(
         64,
@@ -176,8 +185,8 @@ def VGGSegnet(n_classes, input_height=416, input_width=608, vgg_level=3):
 
     o = Conv2D(n_classes, (3, 3), padding="same", data_format=IMAGE_DATA_FORMAT)(o)
     o_shape = Model(img_input, o).output_shape
-    outputHeight = o_shape[2]
-    outputWidth = o_shape[3]
+    outputHeight = o_shape[2] if IMAGE_DATA_FORMAT == 'channels_first' else o_shape[1]
+    outputWidth = o_shape[3] if IMAGE_DATA_FORMAT == 'channels_first' else o_shape[2]
 
     o = (Reshape((-1, outputHeight * outputWidth)))(o)
     o = (Permute((2, 1)))(o)

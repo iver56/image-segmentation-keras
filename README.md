@@ -95,7 +95,7 @@ wget "https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vg
 
 ## Training the Model
 
-To train the model run the following command:
+To train the model using theano, run the following command:
 
 ```shell
 THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python train.py \
@@ -107,6 +107,21 @@ THEANO_FLAGS=device=cuda,floatX=float32 KERAS_BACKEND=theano python train.py \
  --n_classes=10 \
  --input_height=320 \
  --input_width=640 \
+ --model_name="vgg_segnet"
+```
+
+To train the model using tensorflow, run the following command:
+
+```shell
+python train.py \
+ --save_weights_path=weights/ex1 \
+ --train_images="data/dataset1/images_prepped_train/" \
+ --train_annotations="data/dataset1/annotations_prepped_train/" \
+ --val_images="data/dataset1/images_prepped_test/" \
+ --val_annotations="data/dataset1/annotations_prepped_test/" \
+ --n_classes=10 \
+ --input_height=224 \
+ --input_width=224 \
  --model_name="vgg_segnet"
 ```
 
